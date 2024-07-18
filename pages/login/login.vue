@@ -30,7 +30,7 @@
 					账号
 				</view>
 				<view class="input mt-3 d-flex a-center  pr-3">
-					<view class="d-flex a-center text-white border-right pr-2 mr-2">
+					<view class="d-flex a-center text-white border-right pr-2 mr-2" @click="showPhonePop">
 						<image src="" style="width: 40rpx;height: 30rpx;background-color: #fff;" mode=""></image>
 						<text class="ml-1">+34</text>
 						<u-icon name="arrow-down-fill" :size="2" color="#999" class="ml-1 pt-1"></u-icon>
@@ -58,14 +58,17 @@
 				<text style="color: #276cff;" class="ml-2"> 忘记密码?</text>
 			</view>
 		</view>
-
+		<!-- 手机号选择 -->
+		<phone-popup ref="phoneRefs" />
 	</view>
 </template>
 
 <script>
 	import cusSubsection from './cpns/cus-subsection.vue';
+
+	import phonePopup from './cpns/phone-popup.vue';
 	export default {
-		components: { cusSubsection },
+		components: { cusSubsection, phonePopup },
 		data() {
 			return {
 				active: 0,
@@ -86,6 +89,9 @@
 			}
 		},
 		methods: {
+			showPhonePop() {
+				this.$refs.phoneRefs.show()
+			},
 			changeActive(index) {
 				this.from.name = "";
 				this.from.phone = "";
@@ -101,7 +107,8 @@
 
 				const { name, phone, pass } = this.from
 				this.$toast.show(`成功登录了${name}|${phone}|${pass}`);
-			}
+			},
+
 		}
 	}
 </script>
